@@ -1,0 +1,1310 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Action Plan: ChocoCRM x Madmatter Studio</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --primary: #2C2C2C;
+    --secondary: #3A3A3A;
+    --accent: #6B7F5E;
+    --accent2: #4A5D3E;
+    --warm: #C67B5C;
+    --warm-light: #D4956F;
+    --sage: #8FA67A;
+    --olive: #5C6B4E;
+    --sand: #C4B69C;
+    --green: #6B7F5E;
+    --bg: #F5F3EF;
+    --bg-alt: #EDE9E3;
+    --card: #ffffff;
+    --text: #2C2C2C;
+    --muted: #6B6B6B;
+    --border: #DDD8D0;
+  }
+
+  body {
+    font-family: 'Noto Sans Thai', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  /* Slide Navigation */
+  .slide-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: var(--primary);
+    color: white;
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1000;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+  }
+
+  .slide-nav .brand {
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 0.5px;
+  }
+
+  .slide-nav .brand span { color: var(--warm); }
+
+  .slide-nav .nav-links {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .slide-nav .nav-links a {
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .slide-nav .nav-links a:hover,
+  .slide-nav .nav-links a.active {
+    background: var(--accent);
+    color: white;
+  }
+
+  .slide-nav .date {
+    font-size: 12px;
+    opacity: 0.7;
+  }
+
+  /* Sections */
+  section {
+    min-height: 100vh;
+    padding: 80px 24px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .container {
+    max-width: 960px;
+    width: 100%;
+  }
+
+  /* Cover */
+  .cover {
+    background: linear-gradient(135deg, var(--primary) 0%, #3A3A3A 40%, #4A5D3E 100%);
+    color: white;
+    text-align: center;
+  }
+
+  .cover h1 {
+    font-size: 42px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  .cover h1 span { color: var(--warm); }
+  .cover h1 .brand-name { color: var(--sage); }
+
+  .cover .subtitle {
+    font-size: 20px;
+    opacity: 0.85;
+    margin-bottom: 8px;
+    font-weight: 300;
+  }
+
+  .cover .tagline {
+    font-size: 14px;
+    opacity: 0.5;
+    font-style: italic;
+    margin-bottom: 32px;
+    letter-spacing: 1px;
+  }
+
+  .cover-meta {
+    display: flex;
+    gap: 32px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 40px;
+  }
+
+  .cover-meta .meta-item {
+    background: rgba(255,255,255,0.08);
+    padding: 16px 24px;
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .cover-meta .meta-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.5;
+  }
+
+  .cover-meta .meta-value {
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 4px;
+  }
+
+  .cover .packages {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 32px;
+    flex-wrap: wrap;
+  }
+
+  .cover .pkg {
+    padding: 8px 20px;
+    border-radius: 24px;
+    font-weight: 600;
+    font-size: 14px;
+  }
+
+  .pkg-crm { background: var(--warm); color: white; }
+  .pkg-cdp { background: var(--accent); color: white; }
+  .pkg-crmx { background: var(--sand); color: var(--primary); }
+
+  /* Section Headers */
+  .section-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: var(--accent);
+    color: white;
+    border-radius: 50%;
+    font-weight: 700;
+    font-size: 18px;
+    margin-bottom: 12px;
+  }
+
+  .section-number.warm { background: var(--warm); }
+
+  h2 {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--primary);
+  }
+
+  .section-desc {
+    color: var(--muted);
+    font-size: 16px;
+    margin-bottom: 32px;
+  }
+
+  /* Cards */
+  .card {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 28px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    border: 1px solid var(--border);
+    margin-bottom: 16px;
+  }
+
+  .card h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--primary);
+  }
+
+  /* Profile Card */
+  .profile-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .profile-item {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .profile-icon {
+    width: 36px;
+    height: 36px;
+    background: var(--bg-alt);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  .profile-label {
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .profile-value {
+    font-weight: 600;
+    font-size: 15px;
+  }
+
+  /* Challenge Card */
+  .challenge-card {
+    background: linear-gradient(135deg, #F5EFE7, #EDE5D8);
+    border: none;
+    margin-top: 16px;
+  }
+
+  .challenge-card .challenge-tag {
+    display: inline-block;
+    background: var(--warm);
+    color: white;
+    padding: 3px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 14px;
+  }
+
+  th {
+    background: var(--primary);
+    color: white;
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 13px;
+  }
+
+  th:first-child { border-radius: 8px 0 0 0; }
+  th:last-child { border-radius: 0 8px 0 0; }
+
+  td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  tr:hover td { background: var(--bg); }
+
+  .yes { color: var(--accent); font-weight: 600; }
+  .no { color: var(--warm); font-weight: 600; }
+
+  /* Channel Grid */
+  .channel-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 20px 0;
+  }
+
+  .channel-card {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 24px;
+    border: 2px solid var(--border);
+    transition: all 0.2s;
+  }
+
+  .channel-card:hover { border-color: var(--accent); }
+
+  .channel-card h4 {
+    font-size: 18px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .channel-card ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .channel-card li {
+    padding-left: 20px;
+    position: relative;
+    font-size: 14px;
+    color: var(--muted);
+  }
+
+  .channel-card li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 8px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+
+  .channel-card.online li::before { background: var(--accent); }
+  .channel-card.offline li::before { background: var(--warm); }
+
+  .decision-bar {
+    background: var(--primary);
+    color: white;
+    padding: 16px 24px;
+    border-radius: 12px;
+    text-align: center;
+    margin-top: 16px;
+    font-size: 15px;
+  }
+
+  /* Tier Cards */
+  .tier-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 20px 0;
+  }
+
+  .tier-bar {
+    display: flex;
+    align-items: center;
+    padding: 16px 20px;
+    border-radius: 12px;
+    color: white;
+    gap: 16px;
+  }
+
+  .tier-bar.diamond { background: linear-gradient(135deg, #2C2C2C, #1A1A1A); }
+  .tier-bar.platinum { background: linear-gradient(135deg, #6B7F5E, #4A5D3E); }
+  .tier-bar.gold { background: linear-gradient(135deg, #C67B5C, #A8634A); }
+  .tier-bar.silver { background: linear-gradient(135deg, #8B8B8B, #6B6B6B); }
+  .tier-bar.classic { background: linear-gradient(135deg, #C4B69C, #A89B82); }
+
+  .tier-name {
+    font-weight: 700;
+    font-size: 18px;
+    min-width: 120px;
+  }
+
+  .tier-criteria {
+    font-size: 14px;
+    opacity: 0.9;
+    flex: 1;
+  }
+
+  .tier-benefit {
+    font-size: 13px;
+    background: rgba(255,255,255,0.2);
+    padding: 4px 12px;
+    border-radius: 8px;
+    white-space: nowrap;
+  }
+
+  /* DNA Cards */
+  .dna-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 20px 0;
+  }
+
+  .dna-card {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 24px;
+    border: 1px solid var(--border);
+    transition: all 0.2s;
+  }
+
+  .dna-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  }
+
+  .dna-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background: var(--accent);
+    color: white;
+    border-radius: 50%;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .dna-num.warm { background: var(--warm); }
+
+  .dna-card h4 {
+    font-size: 16px;
+    margin-bottom: 4px;
+  }
+
+  .dna-card .dna-en {
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .dna-card p {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* VS Comparison */
+  .vs-grid {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 16px;
+    align-items: center;
+    margin: 20px 0;
+  }
+
+  .vs-box {
+    padding: 20px;
+    border-radius: 12px;
+    font-size: 13px;
+    line-height: 1.7;
+  }
+
+  .vs-box strong { display: block; margin-bottom: 8px; font-size: 14px; }
+
+  .vs-box.good { background: #EDF3E8; border: 1px solid #C5D6B5; color: #3A4F2E; }
+  .vs-box.bad { background: #F5EEEA; border: 1px solid #DDD0C8; color: #6B5445; }
+
+  .vs-mid { font-size: 28px; color: #ccc; text-align: center; font-weight: 300; }
+
+  /* Principle Cards */
+  .principle-row {
+    display: flex;
+    gap: 16px;
+    margin: 16px 0;
+  }
+
+  .principle-card {
+    flex: 1;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 20px;
+    border-left: 4px solid var(--accent);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+
+  .principle-card.warm-border { border-left-color: var(--warm); }
+
+  .principle-card h4 {
+    font-size: 14px;
+    margin-bottom: 6px;
+    color: var(--accent);
+  }
+
+  .principle-card.warm-border h4 { color: var(--warm); }
+
+  .principle-card p {
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  /* Timeline */
+  .timeline {
+    display: flex;
+    align-items: flex-start;
+    gap: 0;
+    margin: 24px 0;
+    position: relative;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+  }
+
+  .timeline-item {
+    flex: 1;
+    text-align: center;
+    position: relative;
+    padding-top: 44px;
+  }
+
+  .timeline-dot {
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 3px solid white;
+    box-shadow: 0 0 0 2px var(--accent);
+    z-index: 1;
+  }
+
+  .timeline-item.golive .timeline-dot {
+    background: var(--warm);
+    box-shadow: 0 0 0 2px var(--warm);
+    width: 24px;
+    height: 24px;
+    top: 10px;
+  }
+
+  .timeline-date {
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--primary);
+  }
+
+  .timeline-label {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  /* Phase Cards */
+  .phase-card {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 24px;
+    border: 1px solid var(--border);
+    margin-bottom: 16px;
+  }
+
+  .phase-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .phase-badge {
+    color: white;
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .phase-badge.green { background: var(--accent); }
+  .phase-badge.warm { background: var(--warm); }
+  .phase-badge.dark { background: var(--primary); }
+
+  .phase-title {
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  /* Note Box */
+  .note-box {
+    background: linear-gradient(135deg, #F0F3ED, #E5EAE0);
+    border-left: 4px solid var(--accent);
+    padding: 16px 20px;
+    border-radius: 0 12px 12px 0;
+    margin: 16px 0;
+    font-size: 14px;
+    color: var(--primary);
+    line-height: 1.7;
+  }
+
+  .note-box.warm-note {
+    background: linear-gradient(135deg, #F5EEEA, #F0E5DD);
+    border-left-color: var(--warm);
+  }
+
+  /* Stat Grid */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 12px;
+    margin: 16px 0;
+  }
+
+  .stat-box {
+    text-align: center;
+    padding: 16px 12px;
+    border-radius: 12px;
+  }
+
+  .stat-num {
+    font-size: 22px;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .stat-label {
+    font-size: 11px;
+    line-height: 1.4;
+  }
+
+  /* Collect Items */
+  .collect-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 16px;
+  }
+
+  .collect-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    background: var(--bg-alt);
+    border-radius: 10px;
+    font-size: 14px;
+  }
+
+  .collect-icon {
+    width: 28px;
+    height: 28px;
+    background: var(--accent);
+    color: white;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 40px;
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  /* Print */
+  @media print {
+    .slide-nav { display: none; }
+    section { min-height: auto; page-break-inside: avoid; padding: 20px; }
+  }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    .profile-grid, .channel-grid, .dna-grid, .collect-grid, .vs-grid { grid-template-columns: 1fr; }
+    .principle-row { flex-direction: column; }
+    .stat-grid { grid-template-columns: 1fr 1fr; }
+    .tier-bar { flex-wrap: wrap; }
+    .tier-benefit { margin-top: 4px; }
+    .cover h1 { font-size: 28px; }
+    h2 { font-size: 24px; }
+    .slide-nav .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="slide-nav">
+  <div class="brand">Choco<span>CRM</span> x Madmatter</div>
+  <div class="nav-links">
+    <a href="#cover">Home</a>
+    <a href="#who">1. Madmatter</a>
+    <a href="#channel">2. ช่องทาง</a>
+    <a href="#service1">3. CRM</a>
+    <a href="#service2">4. CDP</a>
+    <a href="#service3">5. CRMX</a>
+    <a href="#why">6. ทำไม ChocoCRM</a>
+    <a href="#implement">7. Timeline</a>
+    <a href="#next">Next Steps</a>
+  </div>
+  <div class="date">15 พ.ค. 2569</div>
+</nav>
+
+<!-- ==================== COVER ==================== -->
+<section class="cover" id="cover">
+  <div class="container">
+    <h1>Action Plan<br><span>ChocoCRM</span> x <span class="brand-name">Madmatter Studio</span></h1>
+    <p class="subtitle">ระบบสมาชิก สะสมแต้ม & บริหาร Data ลูกค้าครบวงจร</p>
+    <p class="tagline">"Waste Makes Worth" — Sustainable Fashion Brand</p>
+    <div class="packages">
+      <span class="pkg pkg-crm">CRM + Membership</span>
+      <span class="pkg pkg-cdp">CDP + RFM</span>
+      <span class="pkg pkg-crmx">CRMX Consult</span>
+    </div>
+    <div class="cover-meta">
+      <div class="meta-item">
+        <div class="meta-label">จัดทำโดย</div>
+        <div class="meta-value">จุ๊ก — Sale Manager</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">วันที่ประชุม</div>
+        <div class="meta-value">15 พ.ค. 2569</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Go Live</div>
+        <div class="meta-value">มิ.ย. 2569</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 1. MADMATTER คือใคร ==================== -->
+<section id="who">
+  <div class="container">
+    <div class="section-number">1</div>
+    <h2>Madmatter Studio คือใคร</h2>
+    <p class="section-desc">แบรนด์เสื้อผ้าแฟชั่น Sustainable — "Waste Makes Worth"</p>
+
+    <div class="card">
+      <div class="profile-grid">
+        <div class="profile-item">
+          <div class="profile-icon">&#x1f455;</div>
+          <div><div class="profile-label">ธุรกิจ</div><div class="profile-value">แบรนด์เสื้อผ้าแฟชั่น Sustainable</div></div>
+        </div>
+        <div class="profile-item">
+          <div class="profile-icon">&#x1f3ea;</div>
+          <div><div class="profile-label">หน้าร้าน</div><div class="profile-value">8 สาขา (2 มี PC / 6 ฝากขาย)</div></div>
+        </div>
+        <div class="profile-item">
+          <div class="profile-icon">&#x1f6d2;</div>
+          <div><div class="profile-label">ออนไลน์</div><div class="profile-value">Shopify (เว็บใหม่) + Shopee + Lazada + TikTok</div></div>
+        </div>
+        <div class="profile-item">
+          <div class="profile-icon">&#x1f4e6;</div>
+          <div><div class="profile-label">ระบบสต็อก</div><div class="profile-value">JST — จัดการสต็อกส่วนกลาง</div></div>
+        </div>
+        <div class="profile-item">
+          <div class="profile-icon">&#x1f464;</div>
+          <div><div class="profile-label">ผู้ติดต่อ</div><div class="profile-value">คุณจีน (ธันยชนก) — ประสานงาน</div></div>
+        </div>
+        <div class="profile-item">
+          <div class="profile-icon">&#x1f4cb;</div>
+          <div><div class="profile-label">สนใจ</div><div class="profile-value">CRM L4 — ระบบสมาชิก + สะสมแต้ม</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card challenge-card">
+      <span class="challenge-tag">Key Challenge</span>
+      <p><strong>ข้อมูลลูกค้ากระจัดกระจาย (Data Fragmentation)</strong> — ห้างเก็บ Data ลูกค้าออฟไลน์ไปหมด ไม่รู้ว่าใครคือลูกค้าประจำที่แท้จริง (Champion) ทีมงานมีจำกัด ต้องการระบบที่ใช้งานง่ายและไม่เพิ่มภาระ Operation</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 2. ช่องทาง ==================== -->
+<section id="channel" style="background: var(--bg-alt);">
+  <div class="container">
+    <div class="section-number">2</div>
+    <h2>โครงสร้างช่องทางจำหน่าย</h2>
+    <p class="section-desc">ออนไลน์ 80% + ออฟไลน์ 20% — โฟกัส Shopify + 2 สาขาที่มี PC</p>
+
+    <div class="channel-grid">
+      <div class="channel-card online">
+        <h4>&#x1f310; ออนไลน์ (80%)</h4>
+        <ul>
+          <li><strong>Shopify</strong> — เว็บไซต์หลัก กำลังเปิดตัว</li>
+          <li><strong>Shopee / Lazada / TikTok</strong> — Marketplace</li>
+          <li>มีเบอร์โทรลูกค้าอยู่แล้วใน JST</li>
+          <li>แบรนด์คุม Data ได้เอง</li>
+        </ul>
+      </div>
+      <div class="channel-card offline">
+        <h4>&#x1f3ea; ออฟไลน์ (20%)</h4>
+        <ul>
+          <li><strong>2 สาขามี PC</strong> — อยู่ในขอบเขต CRM</li>
+          <li><strong>6 สาขาฝากขาย</strong> — ตัดออกชั่วคราว</li>
+          <li>POS เป็นของห้าง ไม่ได้ Data ลูกค้า</li>
+          <li>ใช้ Report จาก JST ตัดสต็อก</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="decision-bar">
+      <strong>การตัดสินใจ:</strong> โฟกัส Shopify (ออนไลน์) + 2 สาขาที่มี PC เท่านั้น &bull; ตัดฝากขาย 6 สาขาออก เพื่อลดความซับซ้อน Operation
+    </div>
+
+    <div class="card" style="margin-top: 20px;">
+      <h3>กลยุทธ์สะสมแต้มตามช่องทาง</h3>
+      <table>
+        <tr><th>ช่องทาง</th><th>สถานะ</th><th>วิธีการสะสมแต้ม</th></tr>
+        <tr><td><strong>Shopify</strong></td><td class="yes">แบรนด์คุมเอง</td><td>ระยะแรก: อัปโหลด Daily Report จาก JST / ระยะยาว: เชื่อม API</td></tr>
+        <tr><td><strong>Marketplace</strong></td><td>ระบบภายนอก</td><td>ลูกค้ากรอก Order ID ใน LINE OA เพื่อรับแต้ม → ออโต้ครั้งถัดไป</td></tr>
+        <tr><td><strong>หน้าร้าน (2 สาขา)</strong></td><td class="yes">มี PC</td><td>PC ใช้ Web App บนมือถือคีย์เบอร์ + ยอดซื้อให้ทันที</td></tr>
+        <tr><td><strong>ฝากขาย (6 สาขา)</strong></td><td class="no">ไม่มี PC</td><td>ตัดออกชั่วคราว — ลดความซับซ้อน</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 3. SERVICE 1: CRM ==================== -->
+<section id="service1">
+  <div class="container">
+    <div class="section-number warm">3</div>
+    <h2>Service 1: CRM + Membership</h2>
+    <p class="section-desc">ระบบสมาชิก 5 ระดับ สะสมแต้ม แลกรางวัล ผ่าน LINE OA</p>
+
+    <div class="stat-grid">
+      <div class="stat-box" style="background:#F5EEEA;border:1px solid #DDD0C8">
+        <span class="stat-num" style="color:#C67B5C">56 ล้าน</span>
+        <span class="stat-label" style="color:#6B5445">คนไทยใช้ LINE<br>(~95% ของผู้ใช้เน็ต)</span>
+      </div>
+      <div class="stat-box" style="background:#EDF3E8;border:1px solid #C5D6B5">
+        <span class="stat-num" style="color:#4A5D3E">80–90%</span>
+        <span class="stat-label" style="color:#3A4F2E">Open Rate LINE<br>เห็นทุกข้อความ</span>
+      </div>
+      <div class="stat-box" style="background:#F5EEEA;border:1px solid #DDD0C8">
+        <span class="stat-num" style="color:#C67B5C">&lt;15%</span>
+        <span class="stat-label" style="color:#6B5445">Open Rate Email<br>ส่งแล้วไม่ค่อยเปิด</span>
+      </div>
+      <div class="stat-box" style="background:#EDE9E3;border:1px solid #DDD8D0">
+        <span class="stat-num" style="color:#2C2C2C">0 บาท</span>
+        <span class="stat-label" style="color:#6B6B6B">ค่าดาวน์โหลดแอป<br>ลูกค้ามี LINE อยู่แล้ว</span>
+      </div>
+    </div>
+
+    <div class="tier-stack">
+      <div class="tier-bar diamond">
+        <div class="tier-name">DIAMOND</div>
+        <div class="tier-criteria">100,000 บาท / ปี</div>
+        <div class="tier-benefit">ส่วนลด 20% + Personal Assistant</div>
+      </div>
+      <div class="tier-bar platinum">
+        <div class="tier-name">PLATINUM</div>
+        <div class="tier-criteria">50,000 บาท / ปี</div>
+        <div class="tier-benefit">ส่วนลด 15% + ซื้อคอลเลกชันใหม่ก่อนใคร</div>
+      </div>
+      <div class="tier-bar gold">
+        <div class="tier-name">GOLD</div>
+        <div class="tier-criteria">15,000 บาท / ปี</div>
+        <div class="tier-benefit">ส่วนลด 10% + คูปองวันเกิด</div>
+      </div>
+      <div class="tier-bar silver">
+        <div class="tier-name">SILVER</div>
+        <div class="tier-criteria">5,000 บาท / ปี</div>
+        <div class="tier-benefit">ส่วนลด 5% ทุกออเดอร์</div>
+      </div>
+      <div class="tier-bar classic">
+        <div class="tier-name">CLASSIC</div>
+        <div class="tier-criteria">สมัครครั้งแรก</div>
+        <div class="tier-benefit">Welcome Coupon 100 บาท</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>ฟีเจอร์ CRM ทั้งหมด</h3>
+      <table>
+        <tr><th>ฟีเจอร์</th><th>สิ่งที่ Madmatter ได้</th></tr>
+        <tr><td><strong>Tiering 5 ขั้น</strong></td><td>Classic → Silver → Gold → Platinum → Diamond + Maintain/Downgrade ทุก 12 เดือน</td></tr>
+        <tr><td><strong>Point System</strong></td><td>Spending Point ตามยอดซื้อ + Welcome Point + Special Point วาระพิเศษ</td></tr>
+        <tr><td><strong>Reward & Privilege</strong></td><td>ลูกค้ากดรับคูปอง / แลกของรางวัลผ่าน LINE OA ได้เอง</td></tr>
+        <tr><td><strong>Gamification 50+ เกม</strong></td><td>วงล้อเสี่ยงโชค, Mission Campaign สร้างความสนุก</td></tr>
+        <tr><td><strong>Referral</strong></td><td>แนะนำเพื่อน ได้แต้มทั้งคู่</td></tr>
+        <tr><td><strong>เชื่อม Marketplace</strong></td><td>Open API เชื่อม Shopify / Shopee / Lazada / TikTok</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>ทางเลือกเชื่อมต่อ Shopify</h3>
+      <div class="vs-grid">
+        <div class="vs-box bad">
+          <strong>Option 1: เชื่อม API (Auto)</strong>
+          แต้มขึ้นทันทีอัตโนมัติ<br>
+          ค่า Custom: หลักแสนบาท<br>
+          ระยะเวลา: 1–2 เดือน
+        </div>
+        <div class="vs-mid">vs</div>
+        <div class="vs-box good">
+          <strong>Option 2: ใช้ Report (Manual) &#10003;</strong>
+          อัปโหลด Excel จาก JST เข้าระบบ<br>
+          ค่าใช้จ่ายเพิ่ม: 0 บาท<br>
+          พร้อมใช้: ภายใน 3 สัปดาห์
+        </div>
+      </div>
+      <div class="note-box">
+        <strong>แนะนำ:</strong> เริ่ม Option 2 ก่อน — ประหยัดงบ เริ่มเร็ว เมื่อออเดอร์เพิ่มจนแอดมินจัดการไม่ไหว จึงค่อยขยับไป API
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 4. SERVICE 2: CDP ==================== -->
+<section id="service2" style="background: var(--bg-alt);">
+  <div class="container">
+    <div class="section-number">4</div>
+    <h2>Service 2: CDP + RFM + Automation</h2>
+    <p class="section-desc">วิเคราะห์พฤติกรรมลูกค้า แบ่งกลุ่ม ส่งข้อความอัตโนมัติ 24 ชม.</p>
+
+    <div class="principle-row">
+      <div class="principle-card">
+        <h4>พัฒนาเอง (In-House)</h4>
+        <p>ไม่ใช้ Third Party แก้ไข ปรับแต่งได้รวดเร็ว มีปัญหาแก้ได้ทันที</p>
+      </div>
+      <div class="principle-card">
+        <h4>ใช้จริงกับ Enterprise</h4>
+        <p>Bangchak, MBK Group, Samsung, Shell ไว้วางใจ</p>
+      </div>
+      <div class="principle-card">
+        <h4>RFM 11 กลุ่มอัตโนมัติ</h4>
+        <p>แบ่งลูกค้าจากพฤติกรรมจริง ละเอียดกว่าคู่แข่ง</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>RFM Model — แบ่งกลุ่มลูกค้าอัตโนมัติ</h3>
+      <p style="color: var(--muted); font-size: 14px; margin-bottom: 12px;"><strong>R</strong> = Recency (ซื้อล่าสุดเมื่อไหร่) &nbsp; <strong>F</strong> = Frequency (ซื้อบ่อยแค่ไหน) &nbsp; <strong>M</strong> = Monetary (จ่ายเยอะแค่ไหน)</p>
+      <table>
+        <tr><th>กลุ่ม</th><th>พฤติกรรม</th><th>สิ่งที่ Madmatter ทำได้</th></tr>
+        <tr><td><strong style="color:var(--accent)">Champion</strong></td><td>ซื้อบ่อย จ่ายเยอะ เพิ่งซื้อ</td><td>New Collection Preview ก่อนใคร + คูปอง VIP</td></tr>
+        <tr><td><strong style="color:var(--accent)">Loyal</strong></td><td>ซื้อสม่ำเสมอ</td><td>เชิญ Private Sale / VIP Event</td></tr>
+        <tr><td><strong style="color:var(--sand)">Potential</strong></td><td>เพิ่งเริ่มซื้อ แนวโน้มดี</td><td>Welcome Package + โปรซื้อครั้งที่ 2</td></tr>
+        <tr><td><strong style="color:var(--warm)">At-Risk</strong></td><td>เคยซื้อบ่อย แต่หายไป</td><td>Win-Back Campaign + คูปองพิเศษ</td></tr>
+        <tr><td><strong style="color:var(--muted)">Hibernating</strong></td><td>ไม่กลับมานานมาก</td><td>โปรลดพิเศษสุดท้าย</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>Automation Flow — ระบบดูแลลูกค้าอัตโนมัติ</h3>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-date">สมัคร</div>
+          <div class="timeline-label">Welcome Point<br>+ คูปองแรกเข้า</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-date">7 วัน</div>
+          <div class="timeline-label">ยังไม่ซื้อ?<br>ส่งคูปองกระตุ้น</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-date">หลังซื้อ</div>
+          <div class="timeline-label">ขอบคุณ +<br>แนะนำสินค้าคู่</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-date">30 วัน</div>
+          <div class="timeline-label">คอลเลกชันใหม่<br>ส่ง Preview</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot" style="background:var(--warm);box-shadow:0 0 0 2px var(--warm)"></div>
+          <div class="timeline-date" style="color:var(--warm)">60 วัน</div>
+          <div class="timeline-label">ไม่กลับมา?<br>Win-Back</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot" style="background:var(--warm);box-shadow:0 0 0 2px var(--warm)"></div>
+          <div class="timeline-date" style="color:var(--warm)">วันเกิด</div>
+          <div class="timeline-label">ส่วนลดพิเศษ<br>+ แต้มโบนัส</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>LINE Broadcast ทั่วไป vs CDP</h3>
+      <div class="vs-grid">
+        <div class="vs-box bad">
+          <strong>LINE Broadcast ทั่วไป</strong>
+          ส่งทุกคนเหมือนกัน (หว่านแห)<br>
+          ไม่มี Automation<br>
+          รู้แค่คนเปิดอ่าน<br>
+          ค่าข้อความสูง
+        </div>
+        <div class="vs-mid">vs</div>
+        <div class="vs-box good">
+          <strong>CDP ของ ChocoCRM</strong>
+          ส่งเฉพาะกลุ่มเป้าหมาย<br>
+          Automation Journey 24 ชม.<br>
+          Closed-loop: รู้ว่าใครซื้อจริง<br>
+          ประหยัดค่าข้อความ
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 5. SERVICE 3: CRMX ==================== -->
+<section id="service3">
+  <div class="container">
+    <div class="section-number warm">5</div>
+    <h2>Service 3: CRMX — Loyalty Consulting</h2>
+    <p class="section-desc">ไม่ใช่แค่ขายระบบ — มีทีมผู้เชี่ยวชาญช่วยวิเคราะห์ Data และวางแคมเปญ</p>
+
+    <div class="dna-grid">
+      <div class="dna-card">
+        <div class="dna-num warm">1</div>
+        <h4>Campaign Strategy</h4>
+        <div class="dna-en">70 แคมเปญ / สัญญา 1.5 ปี</div>
+        <p>วางแผนแคมเปญตลอดอายุสัญญา ครอบคลุมทุก Seasonal</p>
+      </div>
+      <div class="dna-card">
+        <div class="dna-num warm">2</div>
+        <h4>Data Analysis</h4>
+        <div class="dna-en">QUARTERLY INSIGHT</div>
+        <p>สรุป Insight ลูกค้าทุกไตรมาส หาโอกาสเพิ่มยอดขาย</p>
+      </div>
+      <div class="dna-card">
+        <div class="dna-num warm">3</div>
+        <h4>Creative Service</h4>
+        <div class="dna-en">ARTWORK DESIGN</div>
+        <p>ออกแบบ Artwork แคมเปญให้สอดคล้องกับภาพลักษณ์แบรนด์</p>
+      </div>
+      <div class="dna-card">
+        <div class="dna-num warm">4</div>
+        <h4>Key Decision Factor</h4>
+        <div class="dna-en">CRMX = เหตุผลหลักที่ลูกค้าเลือก</div>
+        <p>ลูกค้าหลายเจ้าตัดสินใจเลือก ChocoCRM เพราะ CRMX ไม่ใช่แค่ระบบ</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>ทีม CRMX ช่วยอะไร Madmatter ได้บ้าง</h3>
+      <table>
+        <tr><th>บทบาท</th><th>สิ่งที่ทำ</th></tr>
+        <tr><td><strong>Account Executive</strong></td><td>ให้คำปรึกษา วางแผน CRM Strategy ร่วมกับทีม Madmatter</td></tr>
+        <tr><td><strong>Data Analyst</strong></td><td>วิเคราะห์ RFM, Redemption Rate, Drop-off Point → Campaign Idea</td></tr>
+        <tr><td><strong>Loyalty Architect</strong></td><td>ออกแบบ Tier, เงื่อนไขแต้ม, ของรางวัล สำหรับธุรกิจแฟชั่น</td></tr>
+        <tr><td><strong>Content & Graphic</strong></td><td>ออกแบบ Artwork แคมเปญให้สอดคล้องกับแบรนด์</td></tr>
+        <tr><td><strong>Quarterly Planning</strong></td><td>ประชุมทุกไตรมาส สรุป Insight + วางแผน Seasonal Campaign</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 6. ทำไมต้อง ChocoCRM ==================== -->
+<section id="why" style="background: var(--bg-alt);">
+  <div class="container">
+    <div class="section-number">6</div>
+    <h2>ทำไมต้องเลือก ChocoCRM</h2>
+    <p class="section-desc">จุดเด่นที่เหนือกว่า — ครบทั้งระบบและทีม</p>
+
+    <div class="dna-grid">
+      <div class="dna-card">
+        <div class="dna-num">1</div>
+        <h4>User Friendly</h4>
+        <div class="dna-en">ใช้งานง่าย ไม่ต้องมี IT</div>
+        <p>Self-Onboard สร้าง Loyalty Program ได้เอง ไม่ต้องเป็นโปรแกรมเมอร์</p>
+      </div>
+      <div class="dna-card">
+        <div class="dna-num">2</div>
+        <h4>อันดับ 1 — 4 ปีติด</h4>
+        <div class="dna-en">MARTECH AWARDS 2023–2026</div>
+        <p>โหวตจากผู้ใช้งานจริง ทั้ง Most Used Local MarTech และ Most Used for SMEs</p>
+      </div>
+      <div class="dna-card">
+        <div class="dna-num warm">3</div>
+        <h4>AE ดูแลเฉพาะ</h4>
+        <div class="dna-en" style="color:var(--warm)">DEDICATED SUPPORT</div>
+        <p>ไม่ต้องคุยกับ Support ทั่วไป มีคนรับผิดชอบประจำ รู้จักธุรกิจ</p>
+      </div>
+      <div class="dna-card">
+        <div class="dna-num warm">4</div>
+        <h4>CDP In-House + CRMX</h4>
+        <div class="dna-en" style="color:var(--warm)">SYSTEM + TEAM</div>
+        <p>พัฒนาเอง ไม่ใช้ Third Party + มีทีมช่วยวิเคราะห์วางแคมเปญ</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Reference Cases — ลูกค้าจริงที่พิสูจน์แล้ว</h3>
+      <table>
+        <tr><th>ลูกค้า</th><th>อุตสาหกรรม</th><th>สิ่งที่ทำ</th><th>เกี่ยวกับ Madmatter</th></tr>
+        <tr><td><strong>Samsung</strong></td><td>Electronics</td><td>Loyalty + Tier + Reward</td><td>ระบบ Tiering ซับซ้อน</td></tr>
+        <tr><td><strong>MBK PLUS</strong></td><td>Retail</td><td>CRM + LINE OA + API</td><td>LINE OA + เชื่อม POS ห้าง</td></tr>
+        <tr><td><strong>Sealect</strong></td><td>FMCG</td><td>Loyalty + Receipt + Gamification</td><td>สแกนใบเสร็จ — คล้ายออฟไลน์</td></tr>
+        <tr><td><strong>Central / MK</strong></td><td>Retail / F&B</td><td>สมาชิก + Mission ใหญ่</td><td>พิสูจน์ Scale Enterprise</td></tr>
+      </table>
+    </div>
+
+    <div class="note-box">
+      <strong>11 ปี / 250+ คน / 3,500+ แบรนด์</strong> — ได้รับการลงทุนจาก AIS และ Krungsri Finnovate — Azure Security Badge 2024 มาตรฐานความปลอดภัยระดับสากล
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 7. TIMELINE ==================== -->
+<section id="implement">
+  <div class="container">
+    <div class="section-number warm">7</div>
+    <h2>Implementation Timeline</h2>
+    <p class="section-desc">จากเซ็นสัญญาถึง Go Live — พร้อมเปิดตัวเว็บ Shopify ใหม่</p>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">พ.ค. 69</div>
+        <div class="timeline-label">เซ็นสัญญา<br>+ เก็บ Requirement</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">3 สัปดาห์</div>
+        <div class="timeline-label">Implementation<br>+ Setup ระบบ</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">Training</div>
+        <div class="timeline-label">อบรม PC<br>+ แอดมิน</div>
+      </div>
+      <div class="timeline-item golive">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date" style="color: var(--warm);">มิ.ย. 69</div>
+        <div class="timeline-label"><strong>Go Live</strong><br>พร้อมเว็บ Shopify</div>
+      </div>
+    </div>
+
+    <!-- Phase 1 -->
+    <div class="phase-card">
+      <div class="phase-header">
+        <span class="phase-badge green">Phase 1</span>
+        <span class="phase-title">Setup ระบบ (3 สัปดาห์ – 2 เดือน)</span>
+      </div>
+      <table>
+        <tr><th>Step</th><th>รายละเอียด</th></tr>
+        <tr><td><strong>CRM + Account</strong></td><td>สร้าง Account + ตั้ง LINE OA + Import ลูกค้าเดิม (ถ้ามี)</td></tr>
+        <tr><td><strong>Point + Tier</strong></td><td>ตั้งค่า Spending Point + 5 Tier + เกณฑ์ Upgrade/Maintain/Downgrade</td></tr>
+        <tr><td><strong>Reward + Coupon</strong></td><td>สร้างคูปอง + ของรางวัล + Smart Code + Gamification</td></tr>
+        <tr><td><strong>Report + Dashboard</strong></td><td>ตั้งค่า Report + ทดสอบ Upload ข้อมูลจาก JST</td></tr>
+      </table>
+    </div>
+
+    <!-- Phase 2 -->
+    <div class="phase-card">
+      <div class="phase-header">
+        <span class="phase-badge warm">Phase 2</span>
+        <span class="phase-title">Training → Go Live (มิ.ย. 2569)</span>
+      </div>
+      <table>
+        <tr><th>สิ่งที่ทำ</th><th>ผู้รับผิดชอบ</th></tr>
+        <tr><td>Training PC หน้าร้าน (Web App สะสมแต้ม)</td><td>AE + PC 2 สาขา</td></tr>
+        <tr><td>Training แอดมิน (Upload Report + จัดการระบบ)</td><td>AE + Admin Madmatter</td></tr>
+        <tr><td>Soft Launch — ทดสอบกลุ่มลูกค้าจริง</td><td>ทีม Madmatter</td></tr>
+        <tr><td><strong>Go Live — เปิดใช้จริง พร้อมเว็บ Shopify ใหม่</strong></td><td>ทุกฝ่าย</td></tr>
+      </table>
+    </div>
+
+    <!-- Phase 3 -->
+    <div class="phase-card">
+      <div class="phase-header">
+        <span class="phase-badge dark">Phase 3</span>
+        <span class="phase-title">CRMX Consult — วิเคราะห์ Data + วางแคมเปญ</span>
+      </div>
+      <table>
+        <tr><th>รายการ</th><th>รายละเอียด</th></tr>
+        <tr><td>วิเคราะห์ Baseline</td><td>ยอดขาย, จำนวนสมาชิก, Tier Distribution หลัง Go Live</td></tr>
+        <tr><td>เสนอแคมเปญ Loyalty</td><td>Welcome Campaign, Double Point, โปรวันเกิด, Seasonal</td></tr>
+        <tr><td>วาง Automation Flow</td><td>Win-Back, Tier Upgrade Notification, Birthday, New Collection</td></tr>
+        <tr><td>Review Schedule</td><td>นัด Review ทุก 3 เดือน — ปรับกลยุทธ์ตามข้อมูลจริง</td></tr>
+      </table>
+      <div class="note-box" style="margin-top: 12px;">
+        <strong>แนวทางวัดผล:</strong> 3 เดือนแรก = เก็บ Data เป็น Baseline / ครึ่งปีหลัง = นำข้อมูลจริงมาตั้ง Target และวัดผล — เป้าหมายจากข้อมูลจริงของ Madmatter ไม่ใช่ตัวเลขสมมติ
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== NEXT STEPS ==================== -->
+<section id="next" style="background: var(--bg-alt);">
+  <div class="container">
+    <div class="section-number warm">&#10003;</div>
+    <h2>Next Steps</h2>
+    <p class="section-desc">สิ่งที่ต้องดำเนินการหลังจากการประชุม</p>
+
+    <div class="dna-grid">
+      <div class="dna-card">
+        <div class="dna-num warm">1</div>
+        <h4>จัดทำ Quotation 2 Option</h4>
+        <div class="dna-en" style="color:var(--warm)">PRICING</div>
+        <p><strong>Option 1:</strong> Full Service (CRM + CDP + CRMX) 1 ปี<br><strong>Option 2:</strong> CRM + CDP (Service 1+2) 1 ปี</p>
+      </div>
+      <div class="dna-card">
+        <div class="dna-num warm">2</div>
+        <h4>ส่ง Demo + ราคา</h4>
+        <div class="dna-en" style="color:var(--warm)">FOLLOW UP</div>
+        <p>ส่งราคาพิเศษ + ตัวอย่าง Demo ระบบ + UX/UI ที่แบรนด์อื่นใช้</p>
+      </div>
+      <div class="dna-card">
+        <div class="dna-num warm">3</div>
+        <h4>นัด Follow-up วันศุกร์หน้า</h4>
+        <div class="dna-en" style="color:var(--warm)">APPOINTMENT</div>
+        <p>โทรติดตามผลและพูดคุยรายละเอียดเพิ่มเติม</p>
+      </div>
+      <div class="dna-card">
+        <div class="dna-num warm">4</div>
+        <h4>เตรียม Go Live มิ.ย.</h4>
+        <div class="dna-en" style="color:var(--warm)">TIMELINE</div>
+        <p>เตรียมความพร้อม Implementation ให้ทันเปิดตัวเว็บ Shopify ใหม่</p>
+      </div>
+    </div>
+
+    <div class="card challenge-card">
+      <span class="challenge-tag">Quotation</span>
+      <p><strong>สัญญาขั้นต่ำ 1 ปี</strong> — รองรับสมาชิก 50,000 ราย (5 GB) — จ่ายเต็มหรือแบ่งจ่ายได้ (รองรับบัตรเครดิต) — ซื้อความจุเพิ่มได้ตามการเติบโต</p>
+    </div>
+
+    <div class="note-box warm-note">
+      <strong>หมายเหตุ:</strong> ราคายังไม่ได้แจ้งลูกค้า — รอจัดทำ Quotation 2 Option ส่งให้ลูกค้าศึกษาพร้อม Demo / ประสาน AE เตรียมส่งต่อ Account
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<div class="footer">
+  <p>Action Plan: ChocoCRM x Madmatter Studio &bull; จัดทำโดย จุ๊ก — Sale Manager, ChocoCRM &bull; 15 พ.ค. 2569</p>
+</div>
+
+<!-- Smooth Scroll + Active Nav -->
+<script>
+document.querySelectorAll('.nav-links a').forEach(link => {
+  link.addEventListener('click', function(e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth' });
+    }
+    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+
+window.addEventListener('scroll', () => {
+  const sections = document.querySelectorAll('section');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  let current = '';
+  sections.forEach(section => {
+    const sectionTop = section.offsetTop - 100;
+    if (window.scrollY >= sectionTop) {
+      current = section.getAttribute('id');
+    }
+  });
+  navLinks.forEach(link => {
+    link.classList.remove('active');
+    if (link.getAttribute('href') === '#' + current) {
+      link.classList.add('active');
+    }
+  });
+});
+</script>
+
+</body>
+</html>
